@@ -4,8 +4,8 @@ namespace Markdown;
 
 public class Tokenizer
 {
-    private Stack<PairToken> boldTokens;
-    private Stack<PairToken> italicTokens;
+    private Stack<BoldToken> boldTokens;
+    private Stack<ItalicToken> italicTokens;
 
     public Tokenizer(string line)
     {
