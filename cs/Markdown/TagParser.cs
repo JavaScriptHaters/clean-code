@@ -18,6 +18,7 @@ public class TagParser
 
     public List<IToken> GetTokens(string text)
     {
+        var tokens = new List<IToken> {};
         // TODO some logic
         throw new NotImplementedException();
     }
