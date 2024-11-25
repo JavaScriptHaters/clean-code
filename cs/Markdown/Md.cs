@@ -1,30 +1,26 @@
-﻿using Markdown.Tokens;
-using System.Text;
+﻿using System.Text;
+using Markdown.Tags;
+using Markdown.Token;
 
 namespace Markdown;
 
 public class Md
 {
-    public string Render(string text) 
-    {
-        var textLines = text.Split(Environment.NewLine).ToList();
-        var sb = new StringBuilder();
-        
-        foreach (var line in textLines)
-        {
-            sb.Append(RenderCurrentString(line));
-        }
+    private readonly List<ITag> availableTags =
+    [
+        new BoldTag(),
+        new H1Tag(),
+        new ItalicTextTag(),
+        new EscapeTag()
+    ];
 
-        return sb.ToString();
+    public string Render(string text)
+    {
+        var parser = new TagParser(availableTags);
+        return GenerateHtml(text, parser.GetTokens(text));
     }
 
-    private string RenderCurrentString(string line)
-    {
-        var tokenizer = new Tokenizer(line);
-        return GenerateHtml(line, tokenizer.TokenizeLine());
-    }
-
-    private string GenerateHtml(string line, List<ITokenPosition> Tokens)
+    private string GenerateHtml(string text, List<IToken> tokens)
     {
         // TODO some logic
         throw new NotImplementedException();
