@@ -30,7 +30,6 @@ public class ItalicTextTag : ITag
             {
                 return TagKind.Close;
             }
-            //currentStack.Pop();
             return TagKind.None;
         }
         if (ch == '_')

@@ -6,7 +6,6 @@ namespace Markdown;
 
 public class TagParser
 {
-    //private readonly List<(Stack<ITag>, TagType)> TagsOrder;
     private readonly Dictionary<TagType, Stack<ITag> > TagsOrder = new();
     private readonly Dictionary<TagType, Stack<IToken>> TokensOrder = new();
     private readonly List<(Func<char, int, TagKind>, ITag)> Rules = new();
@@ -39,10 +38,8 @@ public class TagParser
                     var convertedText = rule.Item2.Head;
                     var pos = rule.Item2.TokenPosition;
                     TokensOrder[rule.Item2.Type].Push(new Token.Token(sourceText, convertedText, pos));
-                    //tokens.Add(new Token.Token(sourceText, convertedText, pos));
                     ResetAllRules();
                     break;
-                    // TagsOrder[rule.Item2.Type].Append(rule.Item2.CreateNewTag());
                 }
                 if (result == TagKind.Close)
                 {
@@ -58,12 +55,10 @@ public class TagParser
                     globalContext = rule.Item2.Type;
                     ResetAllRules();
                     break;
-                    // TagsOrder[rule.Item2.Type].Append(rule.Item2.CreateNewTag());
                 }
             }
 
             textPointer++;
-            // Обработка конца строки проверка стэка с типом Header
         }
 
         return tokens;

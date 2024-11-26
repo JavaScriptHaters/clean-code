@@ -29,8 +29,6 @@ public class BoldTag : ITag
                 return TagKind.Close;
             }
             return TagKind.None;
-            //currentStack.Pop();
-            //return TagKind.Close;
         }
         if (state == 1 && ch == '_')
         {
