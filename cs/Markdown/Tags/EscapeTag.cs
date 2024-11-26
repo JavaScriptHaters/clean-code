@@ -3,14 +3,30 @@
 public class EscapeTag : ITag
 {
     public string Head => "";
-    public string Tail => "";
+    private string symbol;
+    public string Tail => symbol;
     public string MdView => """\""";
     public TagType Type => TagType.Escape;
     private Stack<ITag> currentStack;
     public int TokenPosition { get; set; }
+    private char previousCharecter;
 
     public TagKind TagRule(char ch, int position)
     {
+        if (previousCharecter == '\\' && (ch == '_' || ch == '\\'))
+        {
+            TokenPosition = position;
+            symbol = ch.ToString();
+            previousCharecter = ch;
+            return TagKind.Close;
+        }
+        if (ch == '\\')
+        {
+            TokenPosition = position;
+            previousCharecter = ch;
+            return TagKind.Open;
+        }
+        previousCharecter = ch;
         return TagKind.None;
     }
 

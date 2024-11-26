@@ -23,8 +23,14 @@ public class BoldTag : ITag
         if (state == 2 && (char.IsLetter(ch) || ch == ' '))
         {
             state = 0;
-            currentStack.Pop();
-            return TagKind.Close;
+            ITag tag;
+            if (currentStack.TryPop(out tag))
+            {
+                return TagKind.Close;
+            }
+            return TagKind.None;
+            //currentStack.Pop();
+            //return TagKind.Close;
         }
         if (state == 1 && ch == '_')
         {

@@ -8,6 +8,7 @@ public class TagParser
 {
     //private readonly List<(Stack<ITag>, TagType)> TagsOrder;
     private readonly Dictionary<TagType, Stack<ITag> > TagsOrder = new();
+    private readonly Dictionary<TagType, Stack<IToken>> TokensOrder = new();
     private readonly List<(Func<char, int, TagKind>, ITag)> Rules = new();
 
     public TagParser(List<ITag> tags)
@@ -16,6 +17,7 @@ public class TagParser
         {
             Rules.Add((tag.TagRule, tag));
             TagsOrder.Add(tag.Type, new Stack<ITag>());
+            TokensOrder.Add(tag.Type, new Stack<IToken>());
             tag.GetCurrentStack(TagsOrder[tag.Type]);
         }
     }
@@ -36,18 +38,24 @@ public class TagParser
                     var sourceText = rule.Item2.MdView;
                     var convertedText = rule.Item2.Head;
                     var pos = rule.Item2.TokenPosition;
-                    tokens.Add(new Token.Token(sourceText, convertedText, pos));
+                    TokensOrder[rule.Item2.Type].Push(new Token.Token(sourceText, convertedText, pos));
+                    //tokens.Add(new Token.Token(sourceText, convertedText, pos));
                     ResetAllRules();
                     break;
                     // TagsOrder[rule.Item2.Type].Append(rule.Item2.CreateNewTag());
                 }
                 if (result == TagKind.Close)
                 {
+                    IToken prevToken;
+                    if (TokensOrder[rule.Item2.Type].TryPop(out prevToken))
+                    {
+                        tokens.Add(prevToken);
+                        var sourceText = rule.Item2.MdView;
+                        var convertedText = rule.Item2.Tail;
+                        var pos = rule.Item2.TokenPosition;
+                        tokens.Add(new Token.Token(sourceText, convertedText, pos));
+                    }
                     globalContext = rule.Item2.Type;
-                    var sourceText = rule.Item2.MdView;
-                    var convertedText = rule.Item2.Tail;
-                    var pos = rule.Item2.TokenPosition;
-                    tokens.Add(new Token.Token(sourceText, convertedText, pos));
                     ResetAllRules();
                     break;
                     // TagsOrder[rule.Item2.Type].Append(rule.Item2.CreateNewTag());

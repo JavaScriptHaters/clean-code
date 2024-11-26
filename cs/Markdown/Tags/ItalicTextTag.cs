@@ -25,8 +25,13 @@ public class ItalicTextTag : ITag
         if (state && (char.IsLetter(ch) || ch == ' '))
         {
             state = false;
-            currentStack.Pop();
-            return TagKind.Close;
+            ITag tag;
+            if (currentStack.TryPop(out tag))
+            {
+                return TagKind.Close;
+            }
+            //currentStack.Pop();
+            return TagKind.None;
         }
         if (ch == '_')
         {
