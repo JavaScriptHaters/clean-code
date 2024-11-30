@@ -8,10 +8,10 @@ public static class Md
 {
     private static List<ITag> availableTags =
     [
-        new BoldTag(),
+        //new BoldTag(),
         new H1Tag(),
-        new ItalicTextTag(),
-        new EscapeTag()
+        //new ItalicTextTag(),
+        //new EscapeTag()
     ];
 
     public static string Render(string text)
@@ -29,7 +29,7 @@ public static class Md
         {
             sb.Append(text[position..token.Position]);
             sb.Append(token.ConvertedText);
-            position = token.Position + token.SourceText.Length;
+            position = token.Position + token.SourceText.Length > text.Length ? text.Length : token.Position + token.SourceText.Length;
         }
 
         sb.Append(text[position..text.Length]);
