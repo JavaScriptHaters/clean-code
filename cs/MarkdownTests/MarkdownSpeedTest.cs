@@ -18,8 +18,6 @@ public class MarkdownSpeedTest
         {
             var text = GetRandomString(length);
             sw.Start();
-            Console.WriteLine("-----------------------------");
-            Console.WriteLine(text);
             Md.Render(text);
             sw.Stop();
             results.Add(sw.Elapsed);

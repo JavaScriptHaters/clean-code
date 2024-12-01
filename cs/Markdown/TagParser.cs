@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.ComponentModel.Design;
 using System.Data;
 using Markdown.Rule;
 using Markdown.Tags;
@@ -8,33 +9,10 @@ namespace Markdown;
 
 public class TagParser
 {
-    //private readonly Dictionary<TagType, Stack<ITag> > TagsOrder = new();
-    //private readonly Dictionary<TagType, Stack<IToken>> TokensOrder = new();
-    //private readonly List<(Func<char, int, TagKind>, ITag)> Rules = new();
-
-    //
-    //private readonly List<Rule.Rule> Rules = new();
-
-    //public TagParser(List<ITag> tags)
-    //{
-    //    foreach (var tag in tags)
-    //    {
-    //        //Rules.Add((tag.TagRule, tag));
-    //        //TagsOrder.Add(tag.Type, new Stack<ITag>());
-    //        //TokensOrder.Add(tag.Type, new Stack<IToken>());
-    //        //tag.GetCurrentStack(TagsOrder[tag.Type]);
-    //        //tag.InitialzeStates();
-
-    //        Rules.Add(new Rule.Rule(tag));
-    //    }
-    //}
-    //
-
     private List<IRule> Rules =
     [
         new BoldRule(),
         new ItalicRule(),
-        //new EscapeRule(),
         new H1Rule()
     ];
 
@@ -55,41 +33,61 @@ public class TagParser
         var textPointer = 0;
         var isPointerTeleported = false;
         var isStateNotChanged = true;
+        var skip = 0;
         while (textPointer != text.Length)
         {
-            if (textPointer == 5824)
+            //if (textPointer == 5824)
+            //{
+            //    var p = text[5820..5830];
+            //    //var pe = text[741..750];
+            //    var z4 = text[5823];
+            //    var z = text[5824];
+            //    var z1 = text[5825];
+            //    var z2 = text[5826];
+            //    var z3 = text[5827];
+            //    Console.WriteLine();
+            //}
+
+            if (skip != 0)
             {
-                var p = text[5820..5830];
-                //var pe = text[741..750];
-                var z4 = text[5823];
-                var z = text[5824];
-                var z1 = text[5825];
-                var z2 = text[5826];
-                var z3 = text[5827];
-                Console.WriteLine();
+                skip--;
             }
-
-            var res = EscapeRule.MoveByRule(text[textPointer], textPointer);
-
-            if (res == TagKind.Open)
+            else
             {
-                if (TryGoNextSymbol(textPointer, text))
+                var res = EscapeRule.MoveByRule(text[textPointer], textPointer);
+
+                if (res == TagKind.Open)
                 {
-                    textPointer++;
-                    res = EscapeRule.MoveByRule(text[textPointer], textPointer);
-
-                    if (res == TagKind.Close)
+                    if (TryGoNextSymbol(textPointer, text))
                     {
-                        tokens.AddRange(EscapeRule.GetTokens());
-                        EscapeRule.ClearTokens();
                         textPointer++;
-                        isPointerTeleported = true;
-                        isStateNotChanged = false;
-                    }
+                        res = EscapeRule.MoveByRule(text[textPointer], textPointer);
 
-                    if (!TryGoNextSymbol(textPointer, text))
-                    {
-                        break;
+                        if (res == TagKind.Close)
+                        {
+                            tokens.AddRange(EscapeRule.GetTokens());
+                            EscapeRule.ClearTokens();
+                            if (text[textPointer] == '\\')
+                            {
+                                textPointer--;
+                                skip += 1;
+                            }
+                            else
+                            {
+                                textPointer++;
+                                isPointerTeleported = true;
+                                isStateNotChanged = false;
+                            }
+                        }
+                        else
+                        {
+                            textPointer--;
+                        }
+
+                        if (!TryGoNextSymbol(textPointer, text))
+                        {
+                            break;
+                        }
                     }
                 }
             }

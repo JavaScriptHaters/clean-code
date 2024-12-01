@@ -7,15 +7,9 @@ public class H1Tag : ITag
     public string Head => "<h1>";
     public string Tail => "</h1>";
     public string MdView => "# ";
-    public TagType Type => TagType.Header;
-    //private Stack<ITag> currentStack;
-    //public int TokenPosition { get; set; }
 
     public int InputStateNumber { get; } = 3;
-    public int[] SubOutputStateNumbers { get; } = Array.Empty<int>();
     public int OutputStateNumber { get; } = 5;
-
-    //private static Dictionary<int, Dictionary<SymbolStatus, int>> states = new();
 
     public Dictionary<int, Dictionary<SymbolStatus, int>> States { get; } = InitialzeStates();
 
@@ -76,26 +70,4 @@ public class H1Tag : ITag
 
         return states;
     }
-    //public int[] Positions { get; set; } = { 0, 0 };
-    //public int[] MdLen { get; set; } = { 0, 0 };
-    //public char[] PrevSymbols { get; set; } = { ' ', ' ' };
-
-    //public TagKind TagRule(char ch, int position)
-    //{
-    //    return TagKind.None;
-    //}
-
-    //public ITag CreateNewTag()
-    //{
-    //    return new H1Tag();
-    //}
-
-    //public void GetCurrentStack(in Stack<ITag> stack)
-    //{
-    //    currentStack = stack;
-    //}
-
-    //public void ResetRule()
-    //{
-    //}
 }

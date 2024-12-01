@@ -8,18 +8,9 @@ public class ItalicTextTag : ITag
     public string Head => "<em>";
     public string Tail => "</em>";
     public string MdView => "_";
-    public TagType Type => TagType.ItalicText;
 
     public int InputStateNumber { get; } = 1;
-    public int[] SubOutputStateNumbers { get; } = Array.Empty<int>();
     public int OutputStateNumber { get; } = 12;
-
-    //private bool state;
-    //private Stack<ITag> currentStack;
-    //private int startPosition;
-    //public int TokenPosition { get; set; }
-
-    //private static Dictionary<int, Dictionary<SymbolStatus, int>> states = new();
 
     public Dictionary<int, Dictionary<SymbolStatus, int>> States { get; } = InitialzeStates();
 
@@ -51,6 +42,8 @@ public class ItalicTextTag : ITag
         states.Add(14, new Dictionary<SymbolStatus, int>());
         states.Add(15, new Dictionary<SymbolStatus, int>());
         states.Add(16, new Dictionary<SymbolStatus, int>());
+        states.Add(17, new Dictionary<SymbolStatus, int>());
+        states.Add(18, new Dictionary<SymbolStatus, int>());
 
         states[0].Add(SymbolStatus.text, 13); // 0
         states[0].Add(SymbolStatus.digit, 0);
@@ -60,14 +53,13 @@ public class ItalicTextTag : ITag
         states[0].Add(SymbolStatus.space, 0);
         states[0].Add(SymbolStatus.anotherSymbol, 13); // 0
 
-        // Tag Open
-        states[1].Add(SymbolStatus.text, 2);
+        states[1].Add(SymbolStatus.text, 17);
         states[1].Add(SymbolStatus.digit, 0);
         states[1].Add(SymbolStatus.underscore, 9);
         states[1].Add(SymbolStatus.eof, 0);
         states[1].Add(SymbolStatus.newline, 0);
         states[1].Add(SymbolStatus.space, 0);
-        states[1].Add(SymbolStatus.anotherSymbol, 2);
+        states[1].Add(SymbolStatus.anotherSymbol, 17);
 
         states[2].Add(SymbolStatus.text, 2);
         states[2].Add(SymbolStatus.digit, 0);
@@ -110,13 +102,13 @@ public class ItalicTextTag : ITag
         states[6].Add(SymbolStatus.anotherSymbol, 7);
 
         // Maybe Bold in Italic
-        states[7].Add(SymbolStatus.text, 2); // 0
+        states[7].Add(SymbolStatus.text, 2);
         states[7].Add(SymbolStatus.digit, 0);
-        states[7].Add(SymbolStatus.underscore, 5); // 1
+        states[7].Add(SymbolStatus.underscore, 5);
         states[7].Add(SymbolStatus.eof, 0);
         states[7].Add(SymbolStatus.newline, 0);
-        states[7].Add(SymbolStatus.space, 3); // 0
-        states[7].Add(SymbolStatus.anotherSymbol, 2); // 0
+        states[7].Add(SymbolStatus.space, 3);
+        states[7].Add(SymbolStatus.anotherSymbol, 2);
 
         states[8].Add(SymbolStatus.text, 2);
         states[8].Add(SymbolStatus.digit, 0);
@@ -168,14 +160,13 @@ public class ItalicTextTag : ITag
         states[13].Add(SymbolStatus.space, 0);
         states[13].Add(SymbolStatus.anotherSymbol, 13);
 
-        // Tag Open
-        states[14].Add(SymbolStatus.text, 15);
+        states[14].Add(SymbolStatus.text, 18);
         states[14].Add(SymbolStatus.digit, 0);
         states[14].Add(SymbolStatus.underscore, 0);
         states[14].Add(SymbolStatus.eof, 0);
         states[14].Add(SymbolStatus.newline, 0);
         states[14].Add(SymbolStatus.space, 0);
-        states[14].Add(SymbolStatus.anotherSymbol, 15);
+        states[14].Add(SymbolStatus.anotherSymbol, 18);
 
         states[15].Add(SymbolStatus.text, 15);
         states[15].Add(SymbolStatus.digit, 0);
@@ -193,47 +184,24 @@ public class ItalicTextTag : ITag
         states[16].Add(SymbolStatus.space, 12);
         states[16].Add(SymbolStatus.anotherSymbol, 12);
 
+        // Tag Open
+        states[17].Add(SymbolStatus.text, 2);
+        states[17].Add(SymbolStatus.digit, 0);
+        states[17].Add(SymbolStatus.underscore, 5);
+        states[17].Add(SymbolStatus.eof, 0);
+        states[17].Add(SymbolStatus.newline, 0);
+        states[17].Add(SymbolStatus.space, 3);
+        states[17].Add(SymbolStatus.anotherSymbol, 2);
+
+        // Tag Open
+        states[18].Add(SymbolStatus.text, 15);
+        states[18].Add(SymbolStatus.digit, 0);
+        states[18].Add(SymbolStatus.underscore, 16);
+        states[18].Add(SymbolStatus.eof, 0);
+        states[18].Add(SymbolStatus.newline, 0);
+        states[18].Add(SymbolStatus.space, 0);
+        states[18].Add(SymbolStatus.anotherSymbol, 15);
+
         return states;
     }
-
-    //private int gloabalState;
-    //public int[] Positions { get; set; } = { 0, 0 };
-    //public int[] MdLen { get; set; } = { 0, 0 };
-    //public char[] PrevSymbols { get; set; } = { ' ', ' ' };
-
-    //public TagKind TagRule(char ch, int position)
-    //{
-    //    gloabalState = states[gloabalState][SymbolStatusParser.ParseSymbolStatus(ch)];
-    //    if (gloabalState == 1)
-    //    {
-    //        Positions[0] = position;
-    //        MdLen[0] = 1;
-    //        PrevSymbols[0] = ch;
-    //        return TagKind.Open;
-    //    }
-
-    //    if (gloabalState == 4)
-    //    {
-    //        Positions[1] = position;
-    //        MdLen[1] = 1;
-    //        PrevSymbols[1] = ch;
-    //        return TagKind.Close;
-    //    }
-    //    return TagKind.None;
-    //}
-
-    //public ITag CreateNewTag()
-    //{
-    //    return new ItalicTextTag();
-    //}
-
-    //public void GetCurrentStack(in Stack<ITag> stack)
-    //{
-    //    currentStack = stack;
-    //}
-
-    //public void ResetRule()
-    //{
-    //    state = false;
-    //}
 }

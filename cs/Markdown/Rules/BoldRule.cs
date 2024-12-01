@@ -79,8 +79,7 @@ public class BoldRule : IRule
             
         }
 
-        // (!isItalicInStart || symbol == SymbolStatus.eof)
-        if (isTagClosed && ((!isItalicInMiddle && !isItalicInStart) || symbol == SymbolStatus.eof)) // (!isItalicInMiddle && !isItalicInStart)
+        if (isTagClosed && ((!isItalicInMiddle && !isItalicInStart) || symbol == SymbolStatus.eof))
         {
             isTagClosed = false;
             currentState = 0;

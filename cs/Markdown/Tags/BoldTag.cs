@@ -7,16 +7,9 @@ public class BoldTag : ITag
     public string Head => "<strong>";
     public string Tail => "</strong>";
     public string MdView => "__";
-    public TagType Type => TagType.BoldText;
-    //private int state;
-    //private Stack<ITag> currentStack;
-    //public int TokenPosition { get; set; }
 
     public int InputStateNumber { get; } = 2; // 4
-    public int[] SubOutputStateNumbers { get; } = {11, 16};
     public int OutputStateNumber { get; } = 11;
-
-    //private static Dictionary<int, Dictionary<SymbolStatus, int>> states = new();
 
     public Dictionary<int, Dictionary<SymbolStatus, int>> States { get; } = InitialzeStates();
 
@@ -156,27 +149,4 @@ public class BoldTag : ITag
 
         return states;
     }
-    //public int[] Positions { get; set; } = { 0, 0 };
-    //public int[] MdLen { get; set; } = { 0, 0 };
-    //public char[] PrevSymbols { get; set; } = { ' ', ' ' };
-
-    //public TagKind TagRule(char ch, int position)
-    //{
-    //    return TagKind.None;
-    //}
-
-    //public ITag CreateNewTag()
-    //{
-    //    return new BoldTag();
-    //}
-
-    //public void GetCurrentStack(in Stack<ITag> stack)
-    //{
-    //    currentStack = stack;
-    //}
-
-    //public void ResetRule()
-    //{
-    //    state = 0;
-    //}
 }

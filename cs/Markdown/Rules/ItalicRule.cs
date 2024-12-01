@@ -4,10 +4,6 @@ namespace Markdown.Rule;
 
 public class ItalicRule : IRule
 {
-    // TODO List
-    // 1. проверка обрыва строки (✓)
-    // 2. старт тэга в странном месте, возможно проблема (✕)
-
     private readonly ITag tag = new ItalicTextTag();
     private List<Token.Token> tokens = new();
     private bool isBoldInMiddle;
@@ -32,9 +28,9 @@ public class ItalicRule : IRule
             ClearTokens();
         }
 
-        if (currentState == tag.InputStateNumber || currentState == 14)
+        if (currentState == 17 || currentState == 18)
         {
-            tokens.Add(new Token.Token(tag.MdView, tag.Head, position - (tag.MdView.Length - 1)));
+            tokens.Add(new Token.Token(tag.MdView, tag.Head, position - tag.MdView.Length));
         }
         else if (currentState == tag.OutputStateNumber)
         {
@@ -47,11 +43,9 @@ public class ItalicRule : IRule
                 tokens.Add(new Token.Token(tag.MdView, tag.Tail, position - tag.MdView.Length));
             }
             isTagClosed = true;
-            //return TagKind.Close;
         }
         else if (currentState == 10)
         {
-            //isBoldInStart = !isBoldInStart;
             if (isBoldInMiddle)
             {
                 isBoldInMiddle = false;
@@ -67,7 +61,6 @@ public class ItalicRule : IRule
         }
         else if (currentState == 7)
         {
-            //isBoldInMiddle = !isBoldInMiddle;
             if (isBoldInStart)
             {
                 isBoldInMiddle = false;

@@ -70,7 +70,7 @@ public class MarkdownTest
         {
             yield return new TestCaseData("\\_a_", "_a_").SetName("shielded opening tag");
             yield return new TestCaseData("\\\\_a_", "\\<em>a</em>").SetName("ignore shield backslash");
-            yield return new TestCaseData("_\\a_", @"<em>\a</em>").SetName("does not escape the letter");
+            yield return new TestCaseData("_\\a_", "<em>\\a</em>").SetName("does not escape the letter");
             yield return new TestCaseData("_a\\_", "_a_").SetName("shielded closing tag");
             yield return new TestCaseData("\\__a_", "_<em>a</em>").SetName("shields the bold turning into italic");
             yield return new TestCaseData("__test \\_ _markdown_ text__ another text", "<strong>test _ <em>markdown</em> text</strong> another text")
