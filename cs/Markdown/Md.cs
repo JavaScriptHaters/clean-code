@@ -16,7 +16,8 @@ public static class Md
 
     public static string Render(string text)
     {
-        var parser = new TagParser(availableTags);
+        //var parser = new TagParser(availableTags);
+        var parser = new TagParser();
         return GenerateHtml(text, parser.GetTokens(text));
     }
 

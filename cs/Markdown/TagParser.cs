@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Markdown.Rule;
 using Markdown.Tags;
 using Markdown.Token;
 
@@ -10,21 +11,31 @@ public class TagParser
     //private readonly Dictionary<TagType, Stack<IToken>> TokensOrder = new();
     //private readonly List<(Func<char, int, TagKind>, ITag)> Rules = new();
 
-    private readonly List<Rule.Rule> Rules = new();
+    //
+    //private readonly List<Rule.Rule> Rules = new();
 
-    public TagParser(List<ITag> tags)
-    {
-        foreach (var tag in tags)
-        {
-            //Rules.Add((tag.TagRule, tag));
-            //TagsOrder.Add(tag.Type, new Stack<ITag>());
-            //TokensOrder.Add(tag.Type, new Stack<IToken>());
-            //tag.GetCurrentStack(TagsOrder[tag.Type]);
-            //tag.InitialzeStates();
+    //public TagParser(List<ITag> tags)
+    //{
+    //    foreach (var tag in tags)
+    //    {
+    //        //Rules.Add((tag.TagRule, tag));
+    //        //TagsOrder.Add(tag.Type, new Stack<ITag>());
+    //        //TokensOrder.Add(tag.Type, new Stack<IToken>());
+    //        //tag.GetCurrentStack(TagsOrder[tag.Type]);
+    //        //tag.InitialzeStates();
 
-            Rules.Add(new Rule.Rule(tag));
-        }
-    }
+    //        Rules.Add(new Rule.Rule(tag));
+    //    }
+    //}
+    //
+
+    private List<IRule> Rules =
+    [
+        new BoldRule(),
+        new ItalicRule(),
+        //new EscapeRule(),
+        //new H1Rule()
+    ];
 
     public List<IToken> GetTokens(string text)
     {
@@ -48,6 +59,7 @@ public class TagParser
                 if (result == TagKind.Close)
                 {
                     tokens.AddRange(rule.GetTokens());
+                    rule.ClearTokens();
                 }
             }
 

@@ -15,7 +15,7 @@ public class H1Tag : ITag
     public int[] SubOutputStateNumbers { get; } = Array.Empty<int>();
     public int OutputStateNumber { get; } = 5;
 
-    private static Dictionary<int, Dictionary<SymbolStatus, int>> states = new();
+    //private static Dictionary<int, Dictionary<SymbolStatus, int>> states = new();
 
     public Dictionary<int, Dictionary<SymbolStatus, int>> States { get; } = InitialzeStates();
 
@@ -27,6 +27,8 @@ public class H1Tag : ITag
 
     public static Dictionary<int, Dictionary<SymbolStatus, int>> InitialzeStates()
     {
+        var states = new Dictionary<int, Dictionary<SymbolStatus, int>>();
+
         states.Add(0, new Dictionary<SymbolStatus, int>());
         states.Add(1, new Dictionary<SymbolStatus, int>());
         states.Add(2, new Dictionary<SymbolStatus, int>());

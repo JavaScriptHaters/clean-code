@@ -12,7 +12,7 @@ public class Rule
     private readonly int[] subOutputStateNumbers;
     private readonly int outputStateNumber;
     private int currentState;
-    private ITag currentTag;
+    private readonly ITag currentTag;
 
     public Rule(ITag tag)
     {
