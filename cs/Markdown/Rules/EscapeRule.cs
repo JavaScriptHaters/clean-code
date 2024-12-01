@@ -22,10 +22,12 @@ public class EscapeRule : IRule
         if (currentState == tag.InputStateNumber)
         {
             tokens.Add(new Token.Token(tag.MdView, tag.Head, position - (tag.MdView.Length - 1)));
+            return TagKind.Open;
         }
         else if (currentState == tag.OutputStateNumber)
         {
-            tokens.Add(new Token.Token(tag.MdView, ch.ToString(), position - (tag.MdView.Length - 1)));
+            tokens.Add(new Token.Token(ch.ToString(), ch.ToString(), position - (tag.MdView.Length - 1)));
+            currentState = 0;
             return TagKind.Close;
         }
 

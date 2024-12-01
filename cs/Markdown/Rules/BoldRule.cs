@@ -36,7 +36,15 @@ public class BoldRule : IRule
         }
         else if (currentState == tag.OutputStateNumber)
         {
-            tokens.Add(new Token.Token(tag.MdView, tag.Tail, position - (tag.MdView.Length - 1)));
+            if (symbol == SymbolStatus.eof)
+            {
+                tokens.Add(new Token.Token(tag.MdView, tag.Tail, position - (tag.MdView.Length - 1)));
+            }
+            else
+            {
+                tokens.Add(new Token.Token(tag.MdView, tag.Tail, position - tag.MdView.Length));
+            }
+
             isTagClosed = true;
         }
         else if (currentState == 9)

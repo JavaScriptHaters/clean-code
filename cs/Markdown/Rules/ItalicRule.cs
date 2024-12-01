@@ -17,6 +17,7 @@ public class ItalicRule : IRule
 
     public TagKind MoveByRule(char ch, int position)
     {
+
         var symbol = SymbolStatusParser.ParseSymbolStatus(ch);
 
         if (!tag.UsedSymbols.Contains(symbol))

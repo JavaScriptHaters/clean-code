@@ -28,6 +28,13 @@ public static class Md
         var sb = new StringBuilder();
         foreach (var token in currentTokens)
         {
+            if (token.Position == 748)
+            {
+                var t = text[746..750];
+                var te = text[748];
+                Console.WriteLine();
+            }
+
             sb.Append(text[position..token.Position]);
             sb.Append(token.ConvertedText);
             position = token.Position + token.SourceText.Length > text.Length ? text.Length : token.Position + token.SourceText.Length;
