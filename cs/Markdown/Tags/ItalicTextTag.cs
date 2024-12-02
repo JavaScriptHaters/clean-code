@@ -9,7 +9,7 @@ public class ItalicTextTag : ITag
     public string Tail => "</em>";
     public string MdView => "_";
 
-    public int InputStateNumber { get; } = 1;
+    public int InputStateNumber { get; } = 17;
     public int OutputStateNumber { get; } = 12;
 
     public Dictionary<int, Dictionary<SymbolStatus, int>> States { get; } = InitialzeStates();
@@ -45,13 +45,13 @@ public class ItalicTextTag : ITag
         states.Add(17, new Dictionary<SymbolStatus, int>());
         states.Add(18, new Dictionary<SymbolStatus, int>());
 
-        states[0].Add(SymbolStatus.text, 13); // 0
+        states[0].Add(SymbolStatus.text, 13);
         states[0].Add(SymbolStatus.digit, 0);
         states[0].Add(SymbolStatus.underscore, 1);
         states[0].Add(SymbolStatus.eof, 0);
         states[0].Add(SymbolStatus.newline, 0);
         states[0].Add(SymbolStatus.space, 0);
-        states[0].Add(SymbolStatus.anotherSymbol, 13); // 0
+        states[0].Add(SymbolStatus.anotherSymbol, 13);
 
         states[1].Add(SymbolStatus.text, 17);
         states[1].Add(SymbolStatus.digit, 0);

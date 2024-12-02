@@ -9,6 +9,9 @@ public class ItalicRule : IRule
     private bool isBoldInMiddle;
     private bool isBoldInStart;
     private bool isTagClosed;
+    private readonly int anotherStartState = 18;
+    private readonly int italicStartsInBoldState = 7;
+    private readonly int boldStartsInItalicState = 10;
     private int currentState;
 
     public TagKind MoveByRule(char ch, int position)
@@ -28,7 +31,7 @@ public class ItalicRule : IRule
             ClearTokens();
         }
 
-        if (currentState == 17 || currentState == 18)
+        if (currentState == tag.InputStateNumber || currentState == anotherStartState)
         {
             tokens.Add(new Token.Token(tag.MdView, tag.Head, position - tag.MdView.Length));
         }
@@ -44,7 +47,7 @@ public class ItalicRule : IRule
             }
             isTagClosed = true;
         }
-        else if (currentState == 10)
+        else if (currentState == boldStartsInItalicState)
         {
             if (isBoldInMiddle)
             {
@@ -59,7 +62,7 @@ public class ItalicRule : IRule
                 isBoldInStart = !isBoldInStart;
             }
         }
-        else if (currentState == 7)
+        else if (currentState == italicStartsInBoldState)
         {
             if (isBoldInStart)
             {

@@ -51,7 +51,7 @@ public class BoldTag : ITag
         states[1].Add(SymbolStatus.underscore, 2);
         states[1].Add(SymbolStatus.eof, 0);
         states[1].Add(SymbolStatus.newline, 0);
-        states[1].Add(SymbolStatus.space, 0); // ?
+        states[1].Add(SymbolStatus.space, 0);
         states[1].Add(SymbolStatus.anotherSymbol, 9);
 
         // Tag Open

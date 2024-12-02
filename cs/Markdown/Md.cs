@@ -1,22 +1,12 @@
 ﻿using System.Text;
-using Markdown.Tags;
 using Markdown.Token;
 
 namespace Markdown;
 
 public static class Md
 {
-    private static List<ITag> availableTags =
-    [
-        //new BoldTag(),
-        new H1Tag(),
-        //new ItalicTextTag(),
-        //new EscapeTag()
-    ];
-
     public static string Render(string text)
     {
-        //var parser = new TagParser(availableTags);
         var parser = new TagParser();
         return GenerateHtml(text, parser.GetTokens(text));
     }
@@ -28,13 +18,6 @@ public static class Md
         var sb = new StringBuilder();
         foreach (var token in currentTokens)
         {
-            if (token.Position == 748)
-            {
-                var t = text[746..750];
-                var te = text[748];
-                Console.WriteLine();
-            }
-
             sb.Append(text[position..token.Position]);
             sb.Append(token.ConvertedText);
             position = token.Position + token.SourceText.Length > text.Length ? text.Length : token.Position + token.SourceText.Length;

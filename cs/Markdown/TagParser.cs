@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.ComponentModel.Design;
-using System.Data;
-using Markdown.Rule;
+﻿using Markdown.Rule;
 using Markdown.Tags;
 using Markdown.Token;
 
@@ -36,18 +33,6 @@ public class TagParser
         var skip = 0;
         while (textPointer != text.Length)
         {
-            //if (textPointer == 5837)
-            //{
-            //    var p = text[5835..5840];
-            //    //var pe = text[741..750];
-            //    var z4 = text[5836];
-            //    var z = text[5837];
-            //    var z1 = text[5838];
-            //    var z2 = text[5839];
-            //    var z3 = text[5840];
-            //    Console.WriteLine();
-            //}
-
             if (skip != 0)
             {
                 skip--;

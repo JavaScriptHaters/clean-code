@@ -9,6 +9,8 @@ public class BoldRule : IRule
     private bool isItalicInStart;
     private bool isItalicInMiddle;
     private bool isTagClosed;
+    private readonly int[] italicStartsInBoldState = [10, 12];
+    private readonly int boldStartsInItalicState = 9;
     private int currentState;
 
     public TagKind MoveByRule(char ch, int position)
@@ -44,7 +46,7 @@ public class BoldRule : IRule
 
             isTagClosed = true;
         }
-        else if (currentState == 9)
+        else if (currentState == boldStartsInItalicState)
         {
             if (isItalicInMiddle)
             {
@@ -59,7 +61,7 @@ public class BoldRule : IRule
                 isItalicInStart = !isItalicInStart;
             }
         }
-        else if (currentState == 10 || currentState == 12)
+        else if (italicStartsInBoldState.Contains(currentState))
         {
             if (isItalicInStart)
             {

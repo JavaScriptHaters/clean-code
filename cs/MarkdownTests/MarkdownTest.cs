@@ -52,7 +52,8 @@ public class MarkdownTest
             yield return new TestCaseData("a_bad_", "a<em>bad</em>").SetName("italics opens in the middle closes at the end");
             yield return new TestCaseData("__bold _ab_ad bold__", "<strong>bold <em>ab</em>ad bold</strong>")
                 .SetName("italic opens at the beginning closes in the middle inside bold");
-
+            yield return new TestCaseData("_a123_", "_a123_").SetName("italic not works with digit");
+            yield return new TestCaseData("__a123__", "__a123__").SetName("bold not works with digit");
         }
     }
 
