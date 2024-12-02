@@ -35,6 +35,7 @@ public class BoldTag : ITag
         states.Add(10, new Dictionary<SymbolStatus, int>());
         states.Add(11, new Dictionary<SymbolStatus, int>());
         states.Add(12, new Dictionary<SymbolStatus, int>());
+        states.Add(13, new Dictionary<SymbolStatus, int>());
 
         states[0].Add(SymbolStatus.text, 0);
         states[0].Add(SymbolStatus.digit, 0);
@@ -142,8 +143,16 @@ public class BoldTag : ITag
         states[12].Add(SymbolStatus.underscore, 12); 
         states[12].Add(SymbolStatus.eof, 0);
         states[12].Add(SymbolStatus.newline, 0);
-        states[12].Add(SymbolStatus.space, 5);
+        states[12].Add(SymbolStatus.space, 13);
         states[12].Add(SymbolStatus.anotherSymbol, 4);
+
+        states[13].Add(SymbolStatus.text, 6);
+        states[13].Add(SymbolStatus.digit, 0);
+        states[13].Add(SymbolStatus.underscore, 12);
+        states[13].Add(SymbolStatus.eof, 0);
+        states[13].Add(SymbolStatus.newline, 0);
+        states[13].Add(SymbolStatus.space, 5);
+        states[13].Add(SymbolStatus.anotherSymbol, 6);
 
         return states;
     }

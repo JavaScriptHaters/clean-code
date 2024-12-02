@@ -11,6 +11,7 @@ public class BoldRule : IRule
     private bool isTagClosed;
     private readonly int[] italicStartsInBoldState = [10, 12];
     private readonly int boldStartsInItalicState = 9;
+    private readonly int fakeItalicStartState = 13;
     private int currentState;
 
     public TagKind MoveByRule(char ch, int position)
@@ -76,6 +77,10 @@ public class BoldRule : IRule
                 isItalicInMiddle = !isItalicInMiddle;
             }
 
+        }
+        else if (currentState == fakeItalicStartState)
+        {
+            isItalicInMiddle = !isItalicInMiddle;
         }
 
         if (isTagClosed && (!isItalicInMiddle && !isItalicInStart || symbol == SymbolStatus.eof))

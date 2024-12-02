@@ -54,6 +54,8 @@ public class MarkdownTest
                 .SetName("italic opens at the beginning closes in the middle inside bold");
             yield return new TestCaseData("_a123_", "_a123_").SetName("italic not works with digit");
             yield return new TestCaseData("__a123__", "__a123__").SetName("bold not works with digit");
+            yield return new TestCaseData("__test _ _markdown_ text__ another text", "<strong>test _ <em>markdown</em> text</strong> another text")
+                .SetName("underscore and space is not opening tag");
         }
     }
 
