@@ -8,7 +8,7 @@ public class BoldTag : ITag
     public string Tail => "</strong>";
     public string MdView => "__";
 
-    public int InputStateNumber { get; } = 2; // 4
+    public int InputStateNumber { get; } = 2;
     public int OutputStateNumber { get; } = 11;
 
     public Dictionary<int, Dictionary<SymbolStatus, int>> States { get; } = InitialzeStates();

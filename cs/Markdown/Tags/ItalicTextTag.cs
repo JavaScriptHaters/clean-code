@@ -129,7 +129,7 @@ public class ItalicTextTag : ITag
         // Maybe Italic in Bold
         states[10].Add(SymbolStatus.text, 0);
         states[10].Add(SymbolStatus.digit, 0);
-        states[10].Add(SymbolStatus.underscore, 0);
+        states[10].Add(SymbolStatus.underscore, 1);
         states[10].Add(SymbolStatus.eof, 0);
         states[10].Add(SymbolStatus.newline, 0);
         states[10].Add(SymbolStatus.space, 0);
@@ -162,7 +162,7 @@ public class ItalicTextTag : ITag
 
         states[14].Add(SymbolStatus.text, 18);
         states[14].Add(SymbolStatus.digit, 0);
-        states[14].Add(SymbolStatus.underscore, 0);
+        states[14].Add(SymbolStatus.underscore, 9);
         states[14].Add(SymbolStatus.eof, 0);
         states[14].Add(SymbolStatus.newline, 0);
         states[14].Add(SymbolStatus.space, 0);

@@ -11,9 +11,6 @@ public class BoldRule : IRule
     private bool isTagClosed;
     private int currentState;
 
-    // TODO List
-    // 1. Жирный начался в одном слове но кончился в другом
-
     public TagKind MoveByRule(char ch, int position)
     {
         var symbol = SymbolStatusParser.ParseSymbolStatus(ch);

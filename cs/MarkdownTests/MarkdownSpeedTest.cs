@@ -14,10 +14,12 @@ public class MarkdownSpeedTest
         var sw = new Stopwatch();
         var results = new List<TimeSpan>();
 
-        for (var length = 640; length <= 512 * 10; length *= 2) // 64000  512 * 1000
+        for (var length = 640; length <= 512 * 10; length *= 2)
         {
             var text = GetRandomString(length);
             sw.Start();
+            Console.WriteLine("----------------------------");
+            Console.WriteLine(text);
             Md.Render(text);
             sw.Stop();
             results.Add(sw.Elapsed);
