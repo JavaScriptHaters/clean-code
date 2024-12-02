@@ -1,6 +1,4 @@
-﻿using Markdown.Tags;
-
-namespace Markdown.Tags;
+﻿namespace Markdown.Tags;
 
 public class H1Tag : ITag
 {

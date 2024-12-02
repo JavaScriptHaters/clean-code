@@ -1,6 +1,4 @@
-﻿using Markdown.Tags;
-
-namespace Markdown.Token;
+﻿namespace Markdown.Token;
 
 public interface IToken
 {

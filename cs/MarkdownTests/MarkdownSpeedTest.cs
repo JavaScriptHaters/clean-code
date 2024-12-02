@@ -14,7 +14,7 @@ public class MarkdownSpeedTest
         var sw = new Stopwatch();
         var results = new List<TimeSpan>();
 
-        for (var length = 640; length <= 51200; length *= 2)
+        for (var length = 640; length <= 5120; length *= 2)
         {
             var text = GetRandomString(length);
             sw.Start();

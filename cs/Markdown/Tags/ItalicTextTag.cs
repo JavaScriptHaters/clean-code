@@ -1,7 +1,4 @@
-﻿using Markdown.Tags;
-using Microsoft.VisualBasic;
-
-namespace Markdown.Tags;
+﻿namespace Markdown.Tags;
 
 public class ItalicTextTag : ITag
 {

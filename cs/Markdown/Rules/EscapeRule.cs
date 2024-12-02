@@ -1,6 +1,6 @@
 ﻿using Markdown.Tags;
 
-namespace Markdown.Rule;
+namespace Markdown.Rules;
 
 public class EscapeRule : IRule
 {

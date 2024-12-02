@@ -1,6 +1,6 @@
 ﻿using Markdown.Tags;
 
-namespace Markdown.Rule;
+namespace Markdown.Rules;
 
 public class BoldRule : IRule
 {
@@ -75,10 +75,10 @@ public class BoldRule : IRule
             {
                 isItalicInMiddle = !isItalicInMiddle;
             }
-            
+
         }
 
-        if (isTagClosed && ((!isItalicInMiddle && !isItalicInStart) || symbol == SymbolStatus.eof))
+        if (isTagClosed && (!isItalicInMiddle && !isItalicInStart || symbol == SymbolStatus.eof))
         {
             isTagClosed = false;
             currentState = 0;

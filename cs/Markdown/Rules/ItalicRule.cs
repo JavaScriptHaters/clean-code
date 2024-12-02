@@ -1,6 +1,6 @@
 ﻿using Markdown.Tags;
 
-namespace Markdown.Rule;
+namespace Markdown.Rules;
 
 public class ItalicRule : IRule
 {
@@ -71,7 +71,7 @@ public class ItalicRule : IRule
                 isTagClosed = false;
                 currentState = 0;
                 tokens.Clear();
-                
+
             }
             else
             {

@@ -1,4 +1,4 @@
-﻿using Markdown.Rule;
+﻿using Markdown.Rules;
 using Markdown.Tags;
 using Markdown.Token;
 
@@ -13,7 +13,7 @@ public class TagParser
         new H1Rule()
     ];
 
-    private IRule EscapeRule = new EscapeRule();
+    private EscapeRule escapeRule = new();
 
     public bool TryGoNextSymbol(int textPointer, string text)
     {
@@ -39,19 +39,19 @@ public class TagParser
             }
             else
             {
-                var res = EscapeRule.MoveByRule(text[textPointer], textPointer);
+                var res = escapeRule.MoveByRule(text[textPointer], textPointer);
 
                 if (res == TagKind.Open)
                 {
                     if (TryGoNextSymbol(textPointer, text))
                     {
                         textPointer++;
-                        res = EscapeRule.MoveByRule(text[textPointer], textPointer);
+                        res = escapeRule.MoveByRule(text[textPointer], textPointer);
 
                         if (res == TagKind.Close)
                         {
-                            tokens.AddRange(EscapeRule.GetTokens());
-                            EscapeRule.ClearTokens();
+                            tokens.AddRange(escapeRule.GetTokens());
+                            escapeRule.ClearTokens();
                             if (text[textPointer] == '\\')
                             {
                                 textPointer--;
